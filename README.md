@@ -1,5 +1,6 @@
 # Required Setup
-File structure should be as follows for Infersent to work
+File structure should be as follows for Infersent to work\
+Infersent setup instructions/download found [here](https://github.com/facebookresearch/InferSent)
 * Infersent
    * dataset
       * fastText
