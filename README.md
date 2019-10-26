@@ -1,6 +1,6 @@
 # Required Setup
-File structure should be as follows for Infersent to work
-Infersent
+File structure should be as follows for Infersent to work\
+* Infersent
    * dataset
       * fastText
          * crawl-300d-2M.vec
