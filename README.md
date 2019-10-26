@@ -1,5 +1,5 @@
 # Required Setup
-File structure should be as follows for Infersent to work\
+File structure should be as follows for Infersent to work
 * Infersent
    * dataset
       * fastText
