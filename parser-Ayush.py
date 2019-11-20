@@ -47,9 +47,7 @@ def get_embedding(infersent, sentences: list):
     
     return np.asarray(context_embeddings)
 
-
-
-def retrieve_datatest(dataset: dict):
+def retrieve_data(dataset: dict):
     '''
     Retrieves context, questions, and targets from the data
     Context will return a list of lists for each sentence in a given context
@@ -71,61 +69,6 @@ def retrieve_datatest(dataset: dict):
 
             c_question = []
             c_answer = []
-            c_target = []
-            for qas in paragraph['qas']:
-                if qas['is_impossible']:
-                    # skip impossible questions
-                    continue
-                question = qas['question']
-                answer = qas['answers'][0]['text']
-                c_question.append(question)
-                c_answer.append(answer)
-
-                ans_pos = qas['answers'][0]['answer_start']
-                if ans_pos == 0: ## finding in the test set
-                    # find which sentence the answer is part of
-                    for i, sent in enumerate(cont_sents):
-                        if answer in sent:
-                            c_target.append(i)
-                            break
-                else:
-                    acc = 0
-                    # find which sentence the answer is part of
-                    for i, sent in enumerate(cont_sents):
-                        acc += len(sent) + 1
-                        if acc > ans_pos:
-                            # answer is in sentence i
-                            c_target.append(i)
-                            break
-            target.append(c_target)
-            questions.append(c_question)
-            answers.append(c_answer)
-    
-    return ctx, questions, answers, target
-
-def retrieve_datanew(dataset: dict):
-    '''
-    Retrieves context, questions, and targets from the data
-    Context will return a list of lists for each sentence in a given context
-    Questions will return a list of lists of questions for each context
-    Targets will return a list of target values that correspond to each question.
-    Target values are equivalent to the sentence number within the context that contains the answer to the question
-    '''
-    data = dataset['data']
-    target = []
-    ctx = [] 
-    questions = [] 
-    answers = []
-    for topic in data:
-        sentences = []
-        for paragraph in topic['paragraphs']:
-            context = paragraph['context']
-            cont_sents = nltk.sent_tokenize(context)
-            ctx.append(cont_sents)
-
-            c_question = []
-            c_answer = []
-            c_target = []
             for qas in paragraph['qas']:
                 if qas['is_impossible']:
                     # skip impossible questions
@@ -140,12 +83,12 @@ def retrieve_datanew(dataset: dict):
                 acc = 0
                 # find which sentence the answer is part of
                 for i, sent in enumerate(cont_sents):
-                    acc += len(sent) + 1
+                    acc += len(sent)
                     if acc > ans_pos:
                         # answer is in sentence i
-                        c_target.append(i)
+                        target.append(i)
                         break
-            target.append(c_target)
+            
             questions.append(c_question)
             answers.append(c_answer)
     
