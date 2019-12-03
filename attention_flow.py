@@ -97,9 +97,13 @@ def beta(a,b,c):
 def softmax(x):
     return np.exp(x) / np.sum(np.exp(x), axis=0)
 
-def main():
-    # general idea
-    w, H, U = get() # get w,H,U from previous layer
+def main(w, H, U):
+    '''
+    The attention flow layer requires
+    w: a weight vector 
+    H: context embed matrix
+    U: query embed matrix
+    '''
     S = similarity(w, H, U)
     U_t = context_to_query(S, U)
     H_hat = query_to_context(S, H)
